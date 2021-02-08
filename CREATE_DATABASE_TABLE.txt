@@ -1,0 +1,64 @@
+CREATE DATABASE `employee_directory_dev` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+
+CREATE TABLE `departments` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `active` tinyint(1) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `employees` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(255) DEFAULT NULL,
+  `lastname` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `address1` varchar(255) DEFAULT NULL,
+  `address2` varchar(255) DEFAULT NULL,
+  `address3` varchar(255) DEFAULT NULL,
+  `imageurl` varchar(255) DEFAULT NULL,
+  `active` tinyint(1) DEFAULT NULL,
+  `birthdate` datetime DEFAULT NULL,
+  `hiredate` datetime DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `department_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `Employees_department_id_foreign_idx` (`department_id`),
+  CONSTRAINT `Employees_department_id_foreign_idx` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `jobtitles` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `from_date` datetime DEFAULT NULL,
+  `to_date` datetime DEFAULT NULL,
+  `isCurrent` tinyint(1) DEFAULT NULL,
+  `employee_id` int DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `employee_id` (`employee_id`),
+  CONSTRAINT `jobtitles_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `salaries` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `salary` varchar(255) DEFAULT NULL,
+  `from_date` datetime DEFAULT NULL,
+  `to_date` datetime DEFAULT NULL,
+  `isCurrent` tinyint(1) DEFAULT NULL,
+  `employee_id` int DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `employee_id` (`employee_id`),
+  CONSTRAINT `salaries_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

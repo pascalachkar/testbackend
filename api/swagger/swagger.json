@@ -1,0 +1,408 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Employee Directory Backend API",
+    "description": "API Documentation"
+  },
+  "host": "localhost:8000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Employees API"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/api/v1/employees": {
+      "get": {
+        "tags": ["GET "],
+        "summary": "Get all employees in database",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/returnObjectList"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["POST "],
+        "summary": "Add Employee",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "AddEmployeeRequest",
+            "description": "AddEmployeeRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/employee"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/returnObjectAdd"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/employees/:id": {
+      "get": {
+        "tags": ["GET "],
+        "summary": "Get employee by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "id of the employee to get",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/employee"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["POST "],
+        "summary": "Update Employee",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "id of the employee to update",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "body",
+            "name": "UpdateEmployeeRequest",
+            "description": "Fields in update request are not required",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/employee"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/returnObjectUpdate"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["DELETE "],
+        "summary": "Delete Employee",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "id of the employee to delete",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/returnObjectUpdate"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "returnObjectDelete": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "returnObjectList": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "totalItems": "integer",
+            "employees": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/employee"
+              }
+            },
+            "totalPages": {
+              "type": "integer"
+            },
+            "currentPage": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "returnObjectAdd": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/employeeAdd"
+        }
+      }
+    },
+    "returnObjectUpdate": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/employeeAdd"
+        }
+      }
+    },
+    "employeeAdd": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "address1": {
+          "type": "string"
+        },
+        "address2": {
+          "type": "string"
+        },
+        "address3": {
+          "type": "string"
+        },
+        "imageurl": {
+          "type": "string"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "birthdate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "hiredate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "email": {
+          "type": "string"
+        },
+        "department_id": {
+          "type": "integer"
+        }
+      }
+    },
+    "employee": {
+      "type": "object",
+      "required": [
+        "id",
+        "firstname",
+        "lastname",
+        "email",
+        "jobtitle",
+        "city",
+        "country",
+        "address1",
+        "birthdate",
+        "hiredate",
+        "department_id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "address1": {
+          "type": "string"
+        },
+        "address2": {
+          "type": "string"
+        },
+        "address3": {
+          "type": "string"
+        },
+        "imageurl": {
+          "type": "string"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "birthdate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "hiredate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "email": {
+          "type": "string"
+        },
+        "department_id": {
+          "type": "integer"
+        },
+        "Salary": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "salary": {
+              "type": "number"
+            },
+            "from_date": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "to_date": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "isCurrent": {
+              "type": "boolean"
+            },
+            "employee_id": {
+              "type": "integer"
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        },
+        "JobTitle": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "title": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "from_date": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "to_date": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "isCurrent": {
+              "type": "boolean"
+            },
+            "employee_id": {
+              "type": "integer"
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        },
+        "Department": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "active": {
+              "type": "boolean"
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    }
+  }
+}
