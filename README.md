@@ -12,8 +12,6 @@
 
 This application was written using nodejs/express/sequelize/MySQL Database/mocha-chai
 
-This application supports the [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
-
 ## Instructions to run locally
 
 Make sure you have [Node.js](http://nodejs.org/), [MySQL](https://dev.mysql.com/downloads/) installed.
@@ -21,9 +19,8 @@ Make sure you have [Node.js](http://nodejs.org/), [MySQL](https://dev.mysql.com/
 RUN SCRIPTS in CREATE_DATABASE_TABLE.txt file to create Database/Tables
 
 ```sh
-$ git clone https://github.com/heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
-$ npm install #to install all dependencies and create node_modules folder
+$ git clone
+$ npm install 
 $ npm run dev
 ```
 
@@ -95,7 +92,7 @@ This application was written using VueJS
 Make sure you have [Node.js](http://nodejs.org/), [VueJS](https://vuejs.org/v2/guide/installation.html) installed.
 
 ```sh
-$ git clone https://github.com/heroku/node-js-getting-started.git # or clone your own fork
+$ git clone h
 $ cd .../frontend #... is your local directory
 $ npm install #to install all dependencies and create node_modules folder
 $ npm run serve
